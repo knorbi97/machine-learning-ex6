@@ -29,7 +29,25 @@ def dataset_3_params(X, y, Xval, yval):
   #  Note: You can compute the prediction error using 
   #        mean(double(predictions ~= yval))
 
+  best = 0;
+  for C in [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]:
+    for sigma in [0.01, 0.03, 0.1, 0.3, 1, 3, 10, 30]:
+      # model = svm_train(X, y, C, gaussian_kernel, 1e-3, 5, sigma);
+      # predictions = np.array([svm_predict(model, Xval, sigma)]).T
+      print(f"Trying SVM classification with: C = {C}, sigma = {sigma}", end="")
+      svm = SVC(C=C, kernel=lambda x1, x2: gaussian_kernel(x1, x2, sigma), tol=1e-3, max_iter=10000)
+      model = svm.fit(X, y.ravel())
+      predictions = np.array([model.predict(Xval)]).T
 
+      acc = np.mean(predictions == yval);
+      print(f" Accuracy = {acc}\n")
+      if acc > best:
+        best = acc;
+        C_best = C;
+        sigma_best = sigma;
+
+  C = C_best;
+  sigma = sigma_best;
 
   # =========================================================================
 

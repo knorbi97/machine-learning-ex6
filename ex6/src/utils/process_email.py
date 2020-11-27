@@ -100,7 +100,10 @@ def process_email(email_contents):
     #       s2). It will return True only if the two strings are equivalent.
     #
 
+    idx = vocab_list[s] if s in vocab_list else 0
 
+    if idx > 0:
+      word_indices.append(idx)
 
     # =============================================================
 

@@ -21,7 +21,12 @@ def gaussian_kernel(x1, x2, sigma):
   #               and x2 computed using a Gaussian kernel with bandwidth
   #               sigma
 
-
+  M = x1 @ x2.T
+  H1 = np.sum(np.square(np.mat(x1)), 1)
+  H2 = np.sum(np.square(np.mat(x2)), 1)
+  D = H1 + H2.T - 2 * M
+  
+  sim = np.exp(-D / (2 * sigma ** 2))
 
   # =============================================================
 

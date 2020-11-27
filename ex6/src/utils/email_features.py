@@ -53,7 +53,8 @@ def email_features(word_indices):
   #
   #
 
-
+  for i in word_indices:
+    x[i] = 1
 
   # =========================================================================
 
